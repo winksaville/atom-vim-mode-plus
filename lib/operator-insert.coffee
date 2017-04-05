@@ -184,14 +184,8 @@ class InsertAboveWithNewline extends ActivateInsertMode
 
     lastCursor.setBufferPosition(cursorPosition)
 
-  adjustIndent: ->
-    currentRow = @editor.getCursorBufferPosition().row
-    if currentRow > 0 and @editor.lineTextForBufferRow(currentRow - 1) is ''
-      @editor.autoIndentBufferRow(currentRow)
-
   mutateText: ->
     @editor.insertNewlineAbove()
-    @adjustIndent() if @editor.autoIndent
 
   repeatInsert: (selection, text) ->
     selection.insertText(text.trimLeft(), autoIndent: true)
@@ -200,7 +194,6 @@ class InsertBelowWithNewline extends InsertAboveWithNewline
   @extend()
   mutateText: ->
     @editor.insertNewlineBelow()
-    @adjustIndent() if @editor.autoIndent
 
 # Advanced Insertion
 # -------------------------
